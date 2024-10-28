@@ -1,0 +1,11 @@
+<html>
+    <h1>Hello Django!</h1>
+
+        {% for dvd in dvds %}
+    <ul>
+        <li> DVD : {{ dvd.name }} realisateur : {{ dvd.realisateur }}</li>
+    </ul>
+
+         {% endfor %}
+
+</html>
