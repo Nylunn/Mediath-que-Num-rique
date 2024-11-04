@@ -1,0 +1,9 @@
+<html>
+    <h1>Liste des dvd!</h1>
+    <a href="../">Retour</a>
+        {% for dvd in dvd %}
+        <li>  DVD : {{ dvd.name }} Réalisateur : {{ dvd.realisateur }} Disponible : {{ dvd.disponible }}</li>
+        {% endfor %}
+
+
+</html>

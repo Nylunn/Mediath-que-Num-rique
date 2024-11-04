@@ -1,0 +1,9 @@
+<html>
+    <h1>Liste des plateaux !</h1>
+    <a href="../">Retour</a>
+        {% for plateau in creationPlateau %}
+    <li>Plateau: {{ plateau.name }} - Créateur: {{ plateau.createur }}</li>
+        {% endfor %}
+
+
+</html>
