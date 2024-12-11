@@ -5,11 +5,12 @@
         <a href="ajoutlivre">Ajouter un livres</a> <br>
         <a href="ajoutdvd">Ajouter un dvd</a> <br>
         <a href="ajoutcd">Ajouter un CD</a> <br>
-        <a href="ajoutplateau">Ajouter un plateau</a> <br>
+        <a href="ajoutplateau">Ajouter un plateau</a> <br> <br>
+       <b> <a href="admin" >Panel administrateur</a> <br></b>
     <FONT SIZE=+3>Livres</FONT>
-        {% for livre in livres %}
+         {% for livre in livres %}
          <li> Livre : {{ livre.name }}  Auteur : {{ livre.auteur }} Disponible à l'emprunt : {{ livre.disponible }} </li>
-        {% endfor %}
+         {% endfor %}
         <br>
     </ul>
     <FONT SIZE=+3>CD</FONT>
@@ -27,12 +28,12 @@
         {% endfor %}
 
     </ul>
-<ul>
+    <ul>
     <FONT SIZE=+3>Plateaux</FONT>
 
-    {% for plateau in creationPlateau %}
+        {% for plateau in creationPlateau %}
         <li>Plateau: {{ plateau.name }} - Créateur: {{ plateau.createur }}</li>
-    {% endfor %}
+        {% endfor %}
 
     </ul>
 

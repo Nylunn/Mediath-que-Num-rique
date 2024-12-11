@@ -1,16 +1,39 @@
 from django.shortcuts import render
-from .models import Livre, Dvd, Cd, Jeudeplateau
+from .models import Livre, Dvd, Cd, Jeudeplateau, Emprunteur
 
 from .forms import Creationdvd, Updatedvd, Creationlivre, Updatelivre, Creationcd, Updatecd, Ajoutplateau
-
-
+from .forms import AjoutEmprunteurForm
 #déclaration
 def listelivres(request):
     cds = Cd.objects.all()
     dvds = Dvd.objects.all()
     livres = Livre.objects.all()
-    creation_plateaux  = Jeudeplateau.objects.all()
-    return render(request, 'lists.html',{'livres':livres,'creationPlateau': creation_plateaux,'cd':cds,'dvd':dvds})
+    emprunteurs = Emprunteur.objects.all()
+    creation_plateaux = Jeudeplateau.objects.all()
+    return render(request, 'lists.html', {
+        'livres': livres,
+        'creationPlateau': creation_plateaux,
+        'cd': cds,
+        'dvd': dvds,
+        'emprunteurs': emprunteurs
+    })
+
+
+# Emprunts
+def ajoutEmprunteur(request):
+    if request.method == 'POST':
+        creationemprunteur = AjoutEmprunteurForm(request.POST)
+        if creationemprunteur.is_valid():
+            emprunteur = Emprunteur()
+            emprunteur.name = creationemprunteur.cleaned_data['name']
+            emprunteur.bloque = creationemprunteur.cleaned_data['bloque']
+            emprunteur.save()
+            emprunteurs = Emprunteur.objects.all()
+            return render(request, 'membre/listemembre.html', {'emprunteur': emprunteurs})
+    else:
+        creationemprunteur = AjoutEmprunteurForm()
+    return render(request, 'membre/ajoutEmprunter.html', {'creationemprunteur': creationemprunteur})
+
 
 #fonction ajout livre
 def ajoutlivre(request):
@@ -74,7 +97,7 @@ def ajoutDvd(request):
             dvd.disponible = creationdvd.cleaned_data['disponible']
             dvd.save()
             dvdst = Dvd.objects.all()
-            return render(request, 'lists.html',
+            return render(request, 'dvd/listdvd.html',
                           {'dvd': dvdst})
     else:
         creationdvd = Creationdvd()
@@ -126,7 +149,7 @@ def ajoutCd(request):
             cd.disponible = creationcd.cleaned_data['disponible']
             cd.save()
             cds = Cd.objects.all()
-            return render(request, 'lists.html',
+            return render(request, 'cd/listcd.html',
                           {'cd': cds})
     else:
         creationcd = Creationcd()
@@ -169,23 +192,18 @@ def deletecd(request, id):
 
 def ajoutPlateau(request):
     if request.method == 'POST':
-        # Utilisation correcte du formulaire Ajoutplateau
         formulaire_plateau = Ajoutplateau(request.POST)
         if formulaire_plateau.is_valid():
-            # Création d'une instance de Jeudeplateau
             nouveau_plateau = Jeudeplateau(
                 name=formulaire_plateau.cleaned_data['name'],
                 createur=formulaire_plateau.cleaned_data['createur']
             )
             nouveau_plateau.save()
-            # Récupération de tous les plateaux pour les afficher
             creation_plateaux = Jeudeplateau.objects.all()
-            # Afficher les plateaux dans le même template
-            return render(request, 'lists.html', {'creationPlateau': creation_plateaux})
+            return render(request, 'plateau/listeplateau.html', {'creationPlateau': creation_plateaux})
     else:
         formulaire_plateau = Ajoutplateau()
 
-    # On affiche le formulaire sur la page d'ajout
     return render(request, 'plateau/ajoutplateau.html', {'creationPlateau': formulaire_plateau})
 
 
@@ -217,5 +235,8 @@ def deletelivre(request, id):
     livres = Livre.objects.all()
     return render(request, 'lists.html',
                   {'livres': livres})
+
+
+
 
 

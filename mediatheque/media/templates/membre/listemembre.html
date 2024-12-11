@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des membres</title>
+</head>
+<body>
+<h1>Voici la liste des membres</h1>
+
+    <a href="../">Retour</a>
+        {% for emprunteur in emprunteur %}
+        <li> Emprunteur : {{ emprunteur.name }}, est-il bloquer : {{ emprunteur.bloque }}. </li>
+        {% endfor %}
+</body>
+</html>

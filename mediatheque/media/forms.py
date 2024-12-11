@@ -1,4 +1,5 @@
 from django import forms
+from .models import *
 
 #Création d'un formulaire
 class MediaForms(forms.Form):
@@ -35,3 +36,9 @@ class Updatecd(forms.Form):
 class Ajoutplateau(forms.Form):
     name = forms.CharField(required=False)
     createur = forms.CharField(required=False)
+
+
+class AjoutEmprunteurForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    bloque = forms.BooleanField(required=False)
+

@@ -35,6 +35,6 @@ urlpatterns = [
     path('updatedvd/<int:id>/', views.updatedvd),
     path('deletedvd/<int:id>/', views.deletedvd),
     path('ajoutplateau/', views.ajoutPlateau),
-    #path('updateplateau/<int:id>/', views.updateplateau),
-    #path('deleteplateau/<int:id>/', views.deleteplateau),
+    path('ajoutEmprunter/', views.ajoutEmprunteur),
+    #    path('updatemembre/', views.updateEmprunteur)
 ]
